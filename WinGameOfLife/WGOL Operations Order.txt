@@ -1,0 +1,10 @@
+WinGameOfLife
+
+Order of Operations
+1.	FormGameOfLife_Load()
+2.	PanelGrid_Paint()
+3.	SetupGrid()
+4.	SetupGame()
+
+TODO
+1.	Implement more Game class stuff

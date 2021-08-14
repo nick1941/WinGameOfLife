@@ -1,0 +1,15 @@
+﻿TODO List
+
+√o Make 'grid' and 'cells' have same Rows and Columns.
+√o DEBUG UpdateGrid with NewGeneration
+  It correctly displays the first new generation, but then it stays the same
+√o Merge GitHubGameOfLife Game class
+o Ask for help with interacting with Timer from menu events ***
+o Add Operation menu item event handlers (DEBUG THESE)
+	√ - Start
+	√ - Stop
+	√ - Pause
+	√ - Resume
+o Devise way to save games
+o Create special preset game files
+o Add game instruction form activated by menu item Help

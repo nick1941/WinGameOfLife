@@ -1,0 +1,125 @@
+﻿
+namespace WinGameOfLife
+{
+    /// <summary>
+    /// Encapsulates the data and operational aspects of the game.
+    /// </summary>
+    class Game
+    {
+        private bool [,] myGrid;
+        private int      myRows, myColumns, myCellWidth;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="columns">Number of columns</param>
+        /// <param name="rows">Number of rows</param>
+        /// <param name="cellWidth">Width of cells</param>
+        public Game (int columns, int rows, int cellWidth, bool [,] grid)
+        {
+            myRows      = rows;
+            myColumns   = columns;
+            myCellWidth = cellWidth;
+            myGrid      = grid;
+
+        } // constructor
+
+        /// <summary>
+        /// Check the status of the cells surrounding the specified cell location.
+        /// </summary>
+        /// <param name="column">Current cell column</param>
+        /// <param name="row">Current cell row</param>
+        /// <returns>The number of surrounding cells that are 'alive'</returns>
+        private int CheckStatus (int column, int row)
+        {
+            int count = 0;
+
+            // if upper-left is alive...
+            if ((column - 1 >= 0 && row - 1 > 0) &&
+                myGrid [column - 1, row - 1] == true)
+                count++;
+
+            // if upper is alive...
+            if ((column - 1 >= 0) && myGrid [column - 1, row] == true)
+                count++;
+
+            // if upper-right is alive...
+            if ((column - 1 >= 0 && row + 1 < myRows) &&
+                myGrid [column - 1, row + 1] == true)
+                count++;
+
+            // if left is alive...
+            if ((row - 1 >= 0) && myGrid [column, row - 1] == true)
+                count++;
+
+            // if right is alive...
+            if ((row + 1 < myRows) && myGrid [column, row + 1] == true)
+                count++;
+
+            // if lower-left is alive...
+            if ((column + 1 < myColumns && row - 1 >= 0) &&
+                myGrid [column + 1, row - 1] == true)
+                count++;
+
+            // if lower is alive...
+            if ((column + 1 < myColumns) && myGrid [column + 1, row] == true)
+                count++;
+
+            // if lower-right is alive...
+            if ((column + 1 < myColumns &&
+                row + 1 < myRows) &&
+                myGrid [column + 1, row + 1] == true)
+                count++;
+
+            return count;
+
+        } // method CheckStatus
+
+        /// <summary>
+        /// Set up the grid for the next generation of Life.
+        /// </summary>
+        public bool [,] NewGeneration ()
+        {
+            // Set up a new working grid
+            bool [,] newGrid = new bool [myColumns, myRows];
+
+            // Scan the current grid.  For each cell in the current grid,
+            // get a count of the live cells surrounding it
+            for (int column = 0; column < myGrid.GetLength (0); column++)
+            {
+                for (int row = 0; row < myGrid.GetLength (1); row++)
+                {
+                    int count = CheckStatus (column, row);
+
+                    // Based on the live cells surrounding the current cell
+                    // use the Rules of Life to determine whether the current
+                    // cell lives or dies
+                    if (myGrid [column, row])
+                    {
+                        if (count == 2 || count == 3)
+                            newGrid [column, row] = true;
+
+                        if (count < 2 || count > 3)
+                            newGrid [column, row] = false;
+                    }
+                    else
+                    {
+                        if (count == 3)
+                            newGrid [column, row] = true;
+                    }
+                }
+            }
+            myGrid = newGrid;
+
+            return newGrid;   // Update the main grid
+
+        } // method NewGeneration
+
+        /// <summary>
+        ///  Get the current grid.
+        /// </summary>
+        /// <returns>The current grid arrangement</returns>
+        public bool [,] GetGrid () => myGrid;
+
+    }
+}
