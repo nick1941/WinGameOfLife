@@ -105,8 +105,6 @@ namespace WinGameOfLife
                 case "&Start":
                     generation = 0;
 
-                    generationTimer.Tick += GenerationTimer_Tick;
-
                     generationTimer.Start ();
 
                     startToolStripMenuItem.Enabled = false;
@@ -181,7 +179,10 @@ namespace WinGameOfLife
             if (!introForm.noShowIntro)
                 introForm.ShowDialog ();
 
-            startToolStripMenuItem.Click += MenuItemClick;
+            startToolStripMenuItem.Click  += MenuItemClick;
+            pauseToolStripMenuItem.Click  += MenuItemClick;
+            resumeToolStripMenuItem.Click += MenuItemClick;
+            stopToolStripMenuItem.Click   += MenuItemClick;
 
         } // event handler FormGameOfLife_Load
 
@@ -275,6 +276,5 @@ namespace WinGameOfLife
             brushBlack.Dispose ();
             brushWhite.Dispose ();
         }
-
     } // class FormGameOfLife
 } // namespace WinGameOfLife

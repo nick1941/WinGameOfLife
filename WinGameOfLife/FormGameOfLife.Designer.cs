@@ -120,28 +120,28 @@
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(176, 34);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.startToolStripMenuItem.Text = "&Start";
             // 
             // pauseToolStripMenuItem
             // 
             this.pauseToolStripMenuItem.Enabled = false;
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(176, 34);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.pauseToolStripMenuItem.Text = "&Pause";
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(176, 34);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.stopToolStripMenuItem.Text = "Sto&p";
             // 
             // resumeToolStripMenuItem
             // 
             this.resumeToolStripMenuItem.Enabled = false;
             this.resumeToolStripMenuItem.Name = "resumeToolStripMenuItem";
-            this.resumeToolStripMenuItem.Size = new System.Drawing.Size(176, 34);
+            this.resumeToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.resumeToolStripMenuItem.Text = "&Resume";
             // 
             // optionsToolStripMenuItem
