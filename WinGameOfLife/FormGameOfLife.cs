@@ -106,6 +106,7 @@ namespace WinGameOfLife
                     generation = 0;
 
                     generationTimer.Tick += GenerationTimer_Tick;
+
                     generationTimer.Start ();
 
                     startToolStripMenuItem.Enabled = false;
@@ -130,6 +131,7 @@ namespace WinGameOfLife
 
                     resumeToolStripMenuItem.Enabled = false;
                     pauseToolStripMenuItem.Enabled  = true;
+
                     break;
             }
         }
@@ -247,15 +249,8 @@ namespace WinGameOfLife
             grid = game.NewGeneration ();
 
             UpdateGrid ();
+            //Application.DoEvents ();
         }
-        //private void GenerationTimer_Tick (object sender, System.Timers.ElapsedEventArgs e)
-        //{
-        //    generation++;
-
-        //    grid = game.NewGeneration ();
-
-        //    UpdateGrid ();
-        //}
         #endregion EventHandlers
 
         private void UpdateGrid ()
