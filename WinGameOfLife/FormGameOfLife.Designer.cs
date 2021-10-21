@@ -48,6 +48,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panelGrid = new System.Windows.Forms.Panel();
             this.generationTimer = new System.Windows.Forms.Timer(this.components);
+            this.clearGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -112,7 +113,8 @@
             this.startToolStripMenuItem,
             this.pauseToolStripMenuItem,
             this.stopToolStripMenuItem,
-            this.resumeToolStripMenuItem});
+            this.resumeToolStripMenuItem,
+            this.clearGridToolStripMenuItem});
             this.operationToolStripMenuItem.Name = "operationToolStripMenuItem";
             this.operationToolStripMenuItem.Size = new System.Drawing.Size(108, 29);
             this.operationToolStripMenuItem.Text = "&Operation";
@@ -191,6 +193,13 @@
             this.generationTimer.Interval = 1000;
             this.generationTimer.Tick += new System.EventHandler(this.GenerationTimer_Tick);
             // 
+            // clearGridToolStripMenuItem
+            // 
+            this.clearGridToolStripMenuItem.Enabled = false;
+            this.clearGridToolStripMenuItem.Name = "clearGridToolStripMenuItem";
+            this.clearGridToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.clearGridToolStripMenuItem.Text = "&Clear Grid";
+            // 
             // FormGameOfLife
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -235,6 +244,7 @@
         private System.Windows.Forms.ToolStripMenuItem showIntroToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.Timer generationTimer;
+        private System.Windows.Forms.ToolStripMenuItem clearGridToolStripMenuItem;
     }
 }
 

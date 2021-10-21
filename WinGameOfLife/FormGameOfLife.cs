@@ -19,9 +19,9 @@ namespace WinGameOfLife
         #region FieldVariables
         private bool           gridDrawn;   // Initially false, set true when the grid is drawn
         private bool [,]       grid;        // Array of grid elements
-        private Game           game;
-        private Introduction   introForm;
-        private List<bool [,]> grids = new List<bool [,]> ();
+        private Game           game;        // Game of Life object
+        private Introduction   introForm;   // Introductory form
+        //private List<bool [,]> grids = new List<bool [,]> ();
         private Pen            blackPen;   // Pen used to draw grid elements
         private Rectangle [,]  cells;      // Array of grid cells (painted black or white)
         private SolidBrush     brush;      // Brush used to paint grid cells
@@ -98,6 +98,31 @@ namespace WinGameOfLife
         #endregion Methods
 
         #region EventHandlers
+        /// <summary>
+        /// Load form event handler determines what to initialize
+        /// when the form is first loaded.
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">EventArgs information</param>
+        private void FormGameOfLife_Load (object sender, EventArgs e)
+        {
+            // Create the introductory form.
+            introForm = new Introduction ();
+
+            //  If display of the introductory form has not been disabled,
+            //  show the dialog box.
+            if (!introForm.noShowIntro)
+                introForm.ShowDialog ();
+
+            // Activate the menu click event handlers for the Operations menu.
+            startToolStripMenuItem.Click     += MenuItemClick;
+            pauseToolStripMenuItem.Click     += MenuItemClick;
+            resumeToolStripMenuItem.Click    += MenuItemClick;
+            stopToolStripMenuItem.Click      += MenuItemClick;
+            clearGridToolStripMenuItem.Click += MenuItemClick;
+
+        } // event handler FormGameOfLife_Load
+
         private void MenuItemClick (object sender, EventArgs e)
         {
             switch (sender.ToString ())
@@ -107,16 +132,18 @@ namespace WinGameOfLife
 
                     generationTimer.Start ();
 
-                    startToolStripMenuItem.Enabled = false;
-                    stopToolStripMenuItem.Enabled  = true;
-                    pauseToolStripMenuItem.Enabled = true;
+                    startToolStripMenuItem.Enabled     = false;
+                    stopToolStripMenuItem.Enabled      = true;
+                    pauseToolStripMenuItem.Enabled     = true;
+                    clearGridToolStripMenuItem.Enabled = false;
                     break;
                 case "Sto&p":
                     generationTimer.Stop ();
                     generationTimer.Dispose ();
 
-                    startToolStripMenuItem.Enabled = true;
-                    stopToolStripMenuItem.Enabled  = false;
+                    startToolStripMenuItem.Enabled     = true;
+                    stopToolStripMenuItem.Enabled      = false;
+                    clearGridToolStripMenuItem.Enabled = true;
                     break;
                 case "&Pause":
                     generationTimer.Stop ();
@@ -129,7 +156,9 @@ namespace WinGameOfLife
 
                     resumeToolStripMenuItem.Enabled = false;
                     pauseToolStripMenuItem.Enabled  = true;
-
+                    break;
+                case "&Clear Grid":
+                    ClearGrid ();
                     break;
             }
         }
@@ -165,26 +194,6 @@ namespace WinGameOfLife
                 SetupGame ();
             }
         } // event handler PanelGrid_Paint
-
-        /// <summary>
-        /// Before the main form is loaded, display the introduction
-        /// dialog box.
-        /// </summary>
-        /// <param name="sender">sender</param>
-        /// <param name="e">EventArgs information</param>
-        private void FormGameOfLife_Load (object sender, EventArgs e)
-        {
-            introForm = new Introduction ();
-
-            if (!introForm.noShowIntro)
-                introForm.ShowDialog ();
-
-            startToolStripMenuItem.Click  += MenuItemClick;
-            pauseToolStripMenuItem.Click  += MenuItemClick;
-            resumeToolStripMenuItem.Click += MenuItemClick;
-            stopToolStripMenuItem.Click   += MenuItemClick;
-
-        } // event handler FormGameOfLife_Load
 
         /// <summary>
         /// Handle a mouse click in the panel grid.
@@ -275,6 +284,15 @@ namespace WinGameOfLife
                 }
             brushBlack.Dispose ();
             brushWhite.Dispose ();
+        }
+
+        private void ClearGrid ()
+        {
+            for (int i = 0; i < grid.GetUpperBound (0); i++)
+                for (int j = 0; j < grid.GetUpperBound (1); j++)
+                    grid [i, j] = false;
+
+            UpdateGrid ();
         }
     } // class FormGameOfLife
 } // namespace WinGameOfLife
