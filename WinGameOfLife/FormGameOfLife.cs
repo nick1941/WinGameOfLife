@@ -87,7 +87,7 @@ public partial class FormGameOfLife : Form
     private void SetupGame ()
     {
         grid = new bool [Columns, Rows];
-        game = new Game (Columns, Rows, cellWidth, grid);
+        game = new Game (Columns, Rows, grid);
 
     } // method SetupGame
 
@@ -145,7 +145,7 @@ public partial class FormGameOfLife : Form
 
         //  If display of the introductory form has not been disabled,
         //  show the dialog box.
-        if (!introForm.noShowIntro)
+        if (!introForm.NoShowIntro)
             introForm.ShowDialog ();
 
         // Attach the menu click event handlers for the Operations menu.

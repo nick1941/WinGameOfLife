@@ -1,119 +1,123 @@
 ﻿using System;
 // andrewjivoin
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
-namespace WinGameOfLife
+namespace WinGameOfLife;
+
+/// <summary>
+/// This class provides a means to allow the user
+/// to determine whether or not to display
+/// the game introduction screen.
+/// </summary>
+public partial class Introduction : Form
 {
-    public partial class Introduction : Form
+    /// <summary>
+    /// If set to true, causes the introductory screen
+    /// to not be shown.
+    /// </summary>
+    public bool   NoShowIntro;
+
+    /// <summary>
+    /// Specifies a location for the XML file that stores
+    /// a flag indicating whether or not to show the intro screen.
+    /// </summary>
+    public string PathIntro = @"..\..\..\Introduction.xml";
+
+    /// <summary>
+    /// Constructor performs standard call to InitializeComponent
+    /// and gets the current value of the flag that determines
+    /// whether or not to show the introduction screen.
+    /// </summary>
+    public Introduction()
     {
-        public bool noShowIntro;
-        public string pathIntro = @"..\..\..\Introduction.xml";
+        InitializeComponent();
 
-        /// <summary>
-        /// Constructor performs standard call to InitializeComponent
-        /// and gets the current value of the flag that determines
-        /// whether or not to show the introduction screen.
-        /// </summary>
-        public Introduction()
+        NoShowIntro = GetShowIntroFlag ();
+
+    } // Constructor
+
+    // Get the flag that indicates whether or not to show
+    // the Introduction screen.
+    // Returns:
+    //   true to not show intro; otherwise, false
+    private bool GetShowIntroFlag ()
+    {
+        using (var reader = XmlReader.Create (PathIntro))
         {
-            InitializeComponent();
+            reader.MoveToContent ();
 
-            noShowIntro = GetShowIntroFlag ();
-
-        } // Constructor
-
-        /// <summary>
-        /// Get the flag that indicates whether or not to show
-        /// the Introduction screen.
-        /// </summary>
-        /// <returns>true to not show intro; otherwise, false</returns>
-        private bool GetShowIntroFlag ()
-        {
-            using (var reader = XmlReader.Create (pathIntro))
+            while (reader.Read ())
             {
-                reader.MoveToContent ();
-
-                while (reader.Read ())
+                if (reader.NodeType == XmlNodeType.Element &&
+                    reader.Name == "NoShowIntro")
                 {
-                    if (reader.NodeType == XmlNodeType.Element &&
-                        reader.Name == "noShowIntro")
+                    _ = reader.Read ();
+
+                    if (reader.NodeType == XmlNodeType.Text)
                     {
-                        _ = reader.Read ();
-
-                        if (reader.NodeType == XmlNodeType.Text)
+                        switch (reader.Value.ToLower ())
                         {
-                            switch (reader.Value.ToLower ())
-                            {
-                                case "false":
-                                    return false;
-                                case "true":
-                                    return true;
-                                default:
-                                    throw new FileFormatException
-                                        (string.Format
-                                            ($"Unknown noShowIntro value {reader.Value.ToLower ()}"));
-                            } // switch
-                        } // if text node
-                    } // if 'noShowIntro' element node
-                } // while
-            } // using
-            return false;
+                            case "false":
+                                return false;
+                            case "true":
+                                return true;
+                            default:
+                                throw new FileFormatException
+                                    (string.Format
+                                        ($"Unknown NoShowIntro value {reader.Value.ToLower ()}"));
+                        } // switch
+                    } // if text node
+                } // if 'NoShowIntro' element node
+            } // while
+        } // using
+        return false;
 
-        } // method GetShowIntroFlag
+    } // method GetShowIntroFlag
 
-        /// <summary>
-        /// Save the current value of the 'noShowIntro' flag
-        /// in the XML file.
-        /// </summary>
-        /// <param name="flag"></param>
-        public void SaveShowIntroFlag (bool flag)
-        {
-            var doc = new XmlDocument ();
+    /// <summary>
+    /// Save the current value of the 'NoShowIntro' flag
+    /// in the XML file.
+    /// </summary>
+    /// <param name="flag">bool</param>
+    /// <para>Set true to not show intro screen; otherwise, false</para>
+    public void SaveShowIntroFlag (bool flag)
+    {
+        var doc = new XmlDocument ();
 
-            doc.Load (pathIntro);
+        doc.Load (PathIntro);
 
-            XmlNode root = doc.DocumentElement;
+        XmlNode root = doc.DocumentElement;
 
-            root.SelectSingleNode ("noShowIntro").InnerText = flag.ToString ();
-            doc.Save (pathIntro);
+        root.SelectSingleNode ("NoShowIntro").InnerText = flag.ToString ();
+        doc.Save (PathIntro);
 
-        } // method SaveShowIntroFlag
+    } // method SaveShowIntroFlag
 
-        #region EventHandlers
-        /// <summary>
-        /// 'Begin' button click event handler
-        /// </summary>
-        /// <param name="sender">Event sender</param>
-        /// <param name="e">Event arguments</param>
-        private void ButtonBegin_Click (object sender, EventArgs e)
-        {
-            Close ();
+    #region EventHandlers
+    // 'Begin' button click event handler
+    // Parameters:
+    //  sender object:      Source of event
+    //  e      EventArgs:   Event arguments
+    private void ButtonBegin_Click (object sender, EventArgs e)
+    {
+        Close ();
 
-        } // event handler ButtonBegin_Click
+    } // event handler ButtonBegin_Click
 
-        /// <summary>
-        /// Event handler for checkbox to show/not show Intro
-        /// on next startup.
-        /// </summary>
-        /// <param name="sender">Event sender</param>
-        /// <param name="e">Event arguments</param>
-        private void CheckBoxNoIntro_CheckedChanged (object sender, EventArgs e)
-        {
-            noShowIntro = checkBoxNoIntro.Checked ? true : false;
+    // Event handler for checkbox to show/not show Intro
+    // on next startup.
+    // Parameters:
+    //  sender object:      Source of event
+    //  e      EventArgs:   Event arguments
+    private void CheckBoxNoIntro_CheckedChanged (object sender, EventArgs e)
+    {
+        NoShowIntro = checkBoxNoIntro.Checked ? true : false;
 
-            SaveShowIntroFlag (noShowIntro);
+        SaveShowIntroFlag (NoShowIntro);
 
-        } // event handler CheckBoxNoIntro_CheckedChanged
-        #endregion EventHandlers
+    } // event handler CheckBoxNoIntro_CheckedChanged
+    #endregion EventHandlers
 
-    } // class Introduction
-} // namespace WinGameOfLife
+} // class Introduction
