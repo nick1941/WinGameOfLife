@@ -129,6 +129,8 @@ public partial class FormGameOfLife : Form
                 grid [i, j] = false;
 
         UpdateGrid ();
+
+        toolStripStatusLabel1.Text = "Grid Cleared";
     }
     #endregion Methods
 
@@ -138,6 +140,7 @@ public partial class FormGameOfLife : Form
     // Parameters:
     //  sender object:      Source of event
     //  e      EventArgs:   Event arguments
+    [SupportedOSPlatform ("Windows")]
     private void FormGameOfLife_Load (object sender, EventArgs e)
     {
         // Create the introductory form.
@@ -154,6 +157,8 @@ public partial class FormGameOfLife : Form
         resumeToolStripMenuItem.Click    += MenuItemClick;
         stopToolStripMenuItem.Click      += MenuItemClick;
         clearGridToolStripMenuItem.Click += MenuItemClick;
+
+        toolStripStatusLabel1.Text = "Form Loaded";
 
     } // event handler FormGameOfLife_Load
 
@@ -175,6 +180,7 @@ public partial class FormGameOfLife : Form
                 stopToolStripMenuItem.Enabled      = true;
                 pauseToolStripMenuItem.Enabled     = true;
                 clearGridToolStripMenuItem.Enabled = false;
+                toolStripStatusLabel1.Text         = "Running";
                 break;
             case "Sto&p":
                 generationTimer.Stop ();
@@ -183,18 +189,21 @@ public partial class FormGameOfLife : Form
                 startToolStripMenuItem.Enabled     = true;
                 stopToolStripMenuItem.Enabled      = false;
                 clearGridToolStripMenuItem.Enabled = true;
+                toolStripStatusLabel1.Text         = "Stopped";
                 break;
             case "&Pause":
                 generationTimer.Stop ();
 
                 pauseToolStripMenuItem.Enabled  = false;
                 resumeToolStripMenuItem.Enabled = true;
+                toolStripStatusLabel1.Text      = "Paused";
                 break;
             case "&Resume":
                 generationTimer.Start ();
 
                 resumeToolStripMenuItem.Enabled = false;
                 pauseToolStripMenuItem.Enabled  = true;
+                toolStripStatusLabel1.Text      = "Resumed";
                 break;
             case "&Clear Grid":
                 ClearGrid ();
