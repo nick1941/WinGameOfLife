@@ -48,9 +48,9 @@
             this.showIntroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelGrid = new System.Windows.Forms.Panel();
             this.generationTimer = new System.Windows.Forms.Timer(this.components);
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStripMain.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -126,40 +126,40 @@
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(191, 34);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.startToolStripMenuItem.Text = "&Start";
             // 
             // pauseToolStripMenuItem
             // 
             this.pauseToolStripMenuItem.Enabled = false;
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(191, 34);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.pauseToolStripMenuItem.Text = "&Pause";
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(191, 34);
-            this.stopToolStripMenuItem.Text = "Sto&p";
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.stopToolStripMenuItem.Text = "S&top";
             // 
             // resumeToolStripMenuItem
             // 
             this.resumeToolStripMenuItem.Enabled = false;
             this.resumeToolStripMenuItem.Name = "resumeToolStripMenuItem";
-            this.resumeToolStripMenuItem.Size = new System.Drawing.Size(191, 34);
+            this.resumeToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.resumeToolStripMenuItem.Text = "&Resume";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(188, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(267, 6);
             // 
             // clearGridToolStripMenuItem
             // 
             this.clearGridToolStripMenuItem.Enabled = false;
             this.clearGridToolStripMenuItem.Name = "clearGridToolStripMenuItem";
-            this.clearGridToolStripMenuItem.Size = new System.Drawing.Size(191, 34);
+            this.clearGridToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.clearGridToolStripMenuItem.Text = "&Clear Grid";
             // 
             // optionsToolStripMenuItem
@@ -195,6 +195,12 @@
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStripMain";
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(179, 25);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
             // panelGrid
             // 
             this.panelGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -210,12 +216,6 @@
             // 
             this.generationTimer.Interval = 1000;
             this.generationTimer.Tick += new System.EventHandler(this.GenerationTimer_Tick);
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(179, 25);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
             // FormGameOfLife
             // 

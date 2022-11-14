@@ -14,11 +14,15 @@ namespace WinGameOfLife;
 public partial class FormGameOfLife : Form
 {
     #region FieldVariables
+    private bool           firstFilled = false;
     private bool           gridDrawn;  // Initially false, set true when the grid is drawn
     private bool [,]       grid;       // Array of grid elements
     private Game           game;       // Game of Life object
     private Introduction   introForm;  // Introductory form
     private Pen            blackPen;   // Pen used to draw grid elements
+    // Keep track of the minimum rectangle containing filled cells.
+    private Point          upperLeftMostFilled  = new ();
+    private Point          lowerRightMostFilled = new ();
     private Rectangle [,]  cells;      // Array of grid cells (painted black or white)
     private SolidBrush     brush;      // Brush used to paint grid cells
 
@@ -115,6 +119,39 @@ public partial class FormGameOfLife : Form
 
                 PanelGrid_Paint (this, new PaintEventArgs (cellGraphics, rect));
             }
+        brushBlack.Dispose ();
+        brushWhite.Dispose ();
+
+    } // method UpdateGrid
+
+    // Updates the grid elements in the specified rectangle (filled or empty).
+    // Parameters:
+    //  upperLeft  Point: The upper left point of the rectangle
+    //  lowerRight Point: The lower right point of the rectangle
+    [SupportedOSPlatform ("Windows")]
+    private void UpdateGrid (Point upperLeft, Point lowerRight)
+    {
+        // Create the brushes
+        var brushBlack = new SolidBrush (Color.Black);
+        var brushWhite = new SolidBrush (SystemColors.Control);
+
+        // Get the graphics element
+        Graphics cellGraphics = panelGrid.CreateGraphics ();
+
+        // Update each grid element in the specified rectangle in turn
+        for (int i = upperLeft.X; i <= lowerRight.X; i++)
+            for (int j = upperLeft.Y; j <= lowerRight.Y;j++)
+            {
+                if (grid [i, j])
+                    brush = brushBlack;
+                else
+                    brush = brushWhite;
+
+                Rectangle rect = cells [i, j];
+
+                PanelGrid_Paint (this, new PaintEventArgs (cellGraphics, rect));
+            }
+
         brushBlack.Dispose ();
         brushWhite.Dispose ();
 
@@ -268,6 +305,26 @@ public partial class FormGameOfLife : Form
         else
         {
             brush = new SolidBrush (Color.Black);
+
+            if (firstFilled)
+            {
+                if (x < upperLeftMostFilled.X)
+                    upperLeftMostFilled.X = x;
+                if (y < upperLeftMostFilled.Y)
+                    upperLeftMostFilled.Y= y;
+                if (x > lowerRightMostFilled.X)
+                    lowerRightMostFilled.X = x;
+                if (y > lowerRightMostFilled.Y)
+                    lowerRightMostFilled.Y = y;
+            }
+            else
+            {
+                upperLeftMostFilled.X  = x;
+                upperLeftMostFilled.Y  = y;
+                lowerRightMostFilled.X = x;
+                lowerRightMostFilled.Y = y;
+                firstFilled            = true;
+            }
         }
         // Flip the state of the grid element
         grid [x, y] = !grid [x, y];
