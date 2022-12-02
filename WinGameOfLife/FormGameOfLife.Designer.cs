@@ -126,40 +126,40 @@
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(191, 34);
             this.startToolStripMenuItem.Text = "&Start";
             // 
             // pauseToolStripMenuItem
             // 
             this.pauseToolStripMenuItem.Enabled = false;
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(191, 34);
             this.pauseToolStripMenuItem.Text = "&Pause";
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(191, 34);
             this.stopToolStripMenuItem.Text = "S&top";
             // 
             // resumeToolStripMenuItem
             // 
             this.resumeToolStripMenuItem.Enabled = false;
             this.resumeToolStripMenuItem.Name = "resumeToolStripMenuItem";
-            this.resumeToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.resumeToolStripMenuItem.Size = new System.Drawing.Size(191, 34);
             this.resumeToolStripMenuItem.Text = "&Resume";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(267, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(188, 6);
             // 
             // clearGridToolStripMenuItem
             // 
             this.clearGridToolStripMenuItem.Enabled = false;
             this.clearGridToolStripMenuItem.Name = "clearGridToolStripMenuItem";
-            this.clearGridToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.clearGridToolStripMenuItem.Size = new System.Drawing.Size(191, 34);
             this.clearGridToolStripMenuItem.Text = "&Clear Grid";
             // 
             // optionsToolStripMenuItem

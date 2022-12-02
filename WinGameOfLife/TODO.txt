@@ -10,12 +10,8 @@
 	√ - Pause
 	√ - Resume
 √ o Add menu item to clear grid
-o Devise way to save/restore games
-	Created UpdateGrid() overload with upper left and lower points of figure
-	In PanelGrid_MouseClick
-		When filling a cell, keep track of uppermost leftmost and lowermost rightmost filled cells (DONE)
-		We will use this when we save the screen to save the minimum amount of data
-			We need (upperMost, leftMost) and (lowerMost, RightMost ) Points accessible to save/restore (DONE)
+√ o Update grid in minimal time by only refreshing changed portion
+o Devise way to save/restore games using upper-left and lower-right corners of figure
 o Devise way to allow user to move figure before running
 o Create special preset game files
 o Add game instruction form activated by menu item Help

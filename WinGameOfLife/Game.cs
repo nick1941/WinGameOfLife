@@ -6,8 +6,9 @@ namespace WinGameOfLife;
 /// </summary>
 class Game
 {
-    private bool [,] myGrid;
-    private int      myRows, myColumns;
+    private bool [,]       myGrid;
+    private FormGameOfLife formGol;
+    private int            myRows, myColumns;
 
     /// <summary>
     /// Creates a new instance of the Game class.
@@ -18,12 +19,12 @@ class Game
     /// <para>Number of rows</para>
     /// <param name="grid">bool [,]</param>
     /// <para>Boolean 2-dimensional array</para>
-    public Game (int columns, int rows, bool [,] grid)
+    public Game (FormGameOfLife form, int columns, int rows, bool [,] grid)
     {
         myRows      = rows;
         myColumns   = columns;
         myGrid      = grid;
-
+        formGol     = form;
     }
 
     // Check the status of the cells surrounding the specified cell location.
@@ -101,7 +102,11 @@ class Game
                     // ... and surrounded by 2 or 3 live cells,
                     // it remains alive
                     if (count == 2 || count == 3)
+                    {
                         newGrid [column, row] = true;
+
+                        formGol.UpdateCornerPoints (column, row);
+                    }
 
                     // ... and surrounded by less than 2
                     // or greater than three live cells, it dies
@@ -113,7 +118,11 @@ class Game
                     // ... and surrounded by exactly three live cells,
                     // it comes to life
                     if (count == 3)
+                    {
                         newGrid [column, row] = true;
+
+                        formGol.UpdateCornerPoints (column, row);
+                    }
                 }
             }
         }

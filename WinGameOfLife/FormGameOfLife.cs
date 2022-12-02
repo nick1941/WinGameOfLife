@@ -25,12 +25,6 @@ public partial class FormGameOfLife : Form
     private Point          lowerRightMostFilled = new ();
     private Rectangle [,]  cells;      // Array of grid cells (painted black or white)
     private SolidBrush     brush;      // Brush used to paint grid cells
-
-    /// <summary>
-    /// Keeps track of current lifetime generation
-    /// </summary>
-    public int Generation;
-
     #endregion FieldVariables
 
     #region Properties
@@ -91,38 +85,9 @@ public partial class FormGameOfLife : Form
     private void SetupGame ()
     {
         grid = new bool [Columns, Rows];
-        game = new Game (Columns, Rows, grid);
+        game = new Game (this, Columns, Rows, grid);
 
     } // method SetupGame
-
-    // Updates the grid elements (filled or empty).
-    [SupportedOSPlatform ("Windows")]
-    private void UpdateGrid ()
-    {
-        // Create the brushes
-        var brushBlack = new SolidBrush (Color.Black);
-        var brushWhite = new SolidBrush (SystemColors.Control);
-
-        // Get the graphics element
-        Graphics cellGraphics = panelGrid.CreateGraphics ();
-
-        // Update each grid element in turn
-        for (int i = 0; i < grid.GetUpperBound (0); i++)
-            for (int j = 0; j < grid.GetUpperBound (1); j++)
-            {
-                if (grid [i, j])
-                    brush = brushBlack;
-                else
-                    brush = brushWhite;
-
-                Rectangle rect = cells [i, j];
-
-                PanelGrid_Paint (this, new PaintEventArgs (cellGraphics, rect));
-            }
-        brushBlack.Dispose ();
-        brushWhite.Dispose ();
-
-    } // method UpdateGrid
 
     // Updates the grid elements in the specified rectangle (filled or empty).
     // Parameters:
@@ -165,9 +130,34 @@ public partial class FormGameOfLife : Form
             for (int j = 0; j < grid.GetUpperBound (1); j++)
                 grid [i, j] = false;
 
-        UpdateGrid ();
+        for (int i = upperLeftMostFilled.X; i < lowerRightMostFilled.X; i++)
+            for (int j = upperLeftMostFilled.Y; j < lowerRightMostFilled.Y; j++)
+                grid [i, j] = false;
+
+        UpdateGrid (new Point (upperLeftMostFilled.X, upperLeftMostFilled.Y),
+                    new Point (lowerRightMostFilled.X, lowerRightMostFilled.Y));
 
         toolStripStatusLabel1.Text = "Grid Cleared";
+    }
+
+    /// <summary>
+    /// Update the upper left-most filled and lower right-most filled points
+    /// based on the current values of the filled point specified by (x,y).
+    /// </summary>
+    /// <param name="x">int</param>
+    /// <para>Column</para>
+    /// <param name="y">int</param>
+    /// <para>Row</para>
+    public void UpdateCornerPoints (int x, int y)
+    {
+        if (x < upperLeftMostFilled.X)
+            upperLeftMostFilled.X = x;
+        if (y < upperLeftMostFilled.Y)
+            upperLeftMostFilled.Y = y;
+        if (x > lowerRightMostFilled.X)
+            lowerRightMostFilled.X = x;
+        if (y > lowerRightMostFilled.Y)
+            lowerRightMostFilled.Y = y;
     }
     #endregion Methods
 
@@ -209,8 +199,6 @@ public partial class FormGameOfLife : Form
         switch (sender.ToString ())
         {
             case "&Start":
-                Generation = 0;
-
                 generationTimer.Start ();
 
                 startToolStripMenuItem.Enabled     = false;
@@ -219,7 +207,7 @@ public partial class FormGameOfLife : Form
                 clearGridToolStripMenuItem.Enabled = false;
                 toolStripStatusLabel1.Text         = "Running";
                 break;
-            case "Sto&p":
+            case "S&top":
                 generationTimer.Stop ();
                 generationTimer.Dispose ();
 
@@ -360,12 +348,9 @@ public partial class FormGameOfLife : Form
     [SupportedOSPlatform ("Windows")]
     private void GenerationTimer_Tick (object sender, EventArgs e)
     {
-        // TODO: Not sure this really does anything yet!
-        Generation++;
-
         grid = game.NewGeneration ();
 
-        UpdateGrid ();
+        UpdateGrid (upperLeftMostFilled, lowerRightMostFilled);
     }
     #endregion EventHandlers
 
