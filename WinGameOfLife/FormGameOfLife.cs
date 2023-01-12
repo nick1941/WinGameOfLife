@@ -354,4 +354,40 @@ public partial class FormGameOfLife : Form
     }
     #endregion EventHandlers
 
+    // Event handler to save a grid Figure to a specified file name.
+    // Parameters:
+    //  sender object:      Source of event
+    //  e      EventArgs:   Event arguments
+    private void OnSaveAsClick (object sender, EventArgs e)
+    {
+
+    }
+
+    // Event handler to open a grid file in order to load a Figure.
+    // Parameters:
+    //  sender object:      Source of event
+    //  e      EventArgs:   Event arguments
+    private void OnOpenClick (object sender, EventArgs e)
+    {
+
+    }
+
+    // Event handler to save a grid Figure into a previously opened grid file
+    // Parameters:
+    //  sender object:      Source of event
+    //  e      EventArgs:   Event arguments
+    private void OnSaveClick (object sender, EventArgs e)
+    {
+
+    }
+
+    // Event handler to process a click of the Exit menu item.
+    // Parameters:
+    //  sender object:      Source of event
+    //  e      EventArgs:   Event arguments
+    private void OnExitClick (object sender, EventArgs e)
+    {
+        Dispose (true);
+        Close   ();
+    }
 } // class FormGameOfLife
